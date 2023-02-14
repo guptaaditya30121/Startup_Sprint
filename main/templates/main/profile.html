@@ -147,7 +147,7 @@
                 <label>User Id</label>
               </div>
               <div class="col-md-6">
-                <p>{{codeforces.handle}}</p>
+                <p>{{codeforces.username}}</p>
               </div>
             </div>
             <div class="row">
@@ -155,7 +155,7 @@
                 <label>Max rating</label>
               </div>
               <div class="col-md-6">
-                <p>{{codeforces.maxRating}}</p>
+                <p>{{codeforces.max_rating}}</p>
               </div>
             </div>
             <div class="row"></div>
@@ -182,46 +182,72 @@
                 <label>User Id</label>
               </div>
               <div class="col-md-6">
-                <p>Kshiti123</p>
+                <p>{{lichess.id}}</p>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <label>Name</label>
+                <label>Username</label>
               </div>
               <div class="col-md-6">
-                <p>Kshiti Ghelani</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label>Email</label>
-              </div>
-              <div class="col-md-6">
-                <p></p>
+                <p>{{lichess.username}}</p>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <label>Ranking</label>
+                <label>Classical Rating</label>
               </div>
               <div class="col-md-6">
-                <p>1200</p>
+                <p>{{lichess.perfs.classical.rating}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Blitz Rating</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{lichess.perfs.blitz.rating}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Bullet Rating</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{lichess.perfs.bullet.rating}}</p>
               </div>
             </div>
           </div>
           <hr />
         </div>
-        <h3>Contest History</h3>
+        <h3>Codeforces History</h3>
         <hr />
-        <ul>
+        <ol>
+          {% for contest in codeforces.contests|slice:":10"%}
           <li class="list">
-            {% for contest in codeforces_history%}
-            <span>1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Coffee</span
-            ><span class="date">12.09.8</span>
+            <span
+              >{{forloop.counter}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {{contest.Contest}}</span
+            ><span class="date">{{contest.timing}}</span>
           </li>
-        </ul>
+          {%endfor%}
+        </ol>
         <hr />
+        <h3>Lichess History</h3>
+        <hr />
+        <ol>
+          {% for match in lichess_history|slice:":10"%}
+          <li class="list">
+            <span
+              >{{forloop.counter}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {{match.perf}}</span
+            ><span class="date">{{match.status}}</span>
+          </li>
+          {%endfor%}
+        </ol>
+        <hr />
+      </div>
+      </div>
       </div>
     </div>
   </form>
