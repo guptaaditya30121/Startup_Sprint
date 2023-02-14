@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin
-from .models import User
+from .models import User, Contest, Domain, Handle
 from django.forms import Textarea
 
 # Register your models here.
@@ -16,7 +16,7 @@ class UserAdminConfig(UserAdmin):
     list_display = ('email', 'username',
                     'is_active', 'is_staff', 'id', 'is_superuser')
     fieldsets = (
-        (None, {'fields': ('email', 'username',
+        (None, {'fields': ('email', 'username', 'password', 'contest_history', 'domain', 'handles',
          'streak')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
     )
@@ -30,3 +30,6 @@ class UserAdminConfig(UserAdmin):
 
 
 admin.site.register(User, UserAdminConfig)
+admin.site.register(Contest)
+admin.site.register(Domain)
+admin.site.register(Handle)

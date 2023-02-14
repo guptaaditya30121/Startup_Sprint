@@ -33,6 +33,9 @@ class Domain(models.Model):
     name = models.CharField(max_length=300)
     contestsHeld = models.IntegerField(default=0)
 
+    def __str__(self):
+        return str(self.name)
+
 
 class Contest(models.Model):
     hostingSite = models.CharField(max_length=300)
@@ -43,6 +46,17 @@ class Contest(models.Model):
     domain_contest = models.ForeignKey(
         Domain, on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return str(self.hostingSite)
+
+
+class Handle(models.Model):
+    handleName = models.CharField(max_length=150)
+    handle_domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.handleName)
+
 
 class User(AbstractUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True)
@@ -51,8 +65,10 @@ class User(AbstractUser, PermissionsMixin):
         Contest, on_delete=models.SET_NULL, null=True, related_name="recent_activity")
     streak = models.IntegerField(default=0)
     contest_history = models.ManyToManyField(
-        Contest, related_name="all_contests")
+        Contest, related_name="all_contests", blank=True)
     domain = models.ManyToManyField(Domain)
+    handles = models.ManyToManyField(Handle)
+
     # image = models.ImageField(default='user.png', upload_to='profile_pics')
     # bio = models.TextField(null=True, blank=True)
     objects = CustomAccountManager()
@@ -61,6 +77,3 @@ class User(AbstractUser, PermissionsMixin):
 
     def __str__(self):
         return str(self.username)
-
-
-# class Leaderboard(models.Model):
