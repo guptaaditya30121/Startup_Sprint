@@ -165,7 +165,7 @@
     <br />
 
     <div class="row">
-      <div class="col-md-8" style="padding-left: 8vw">
+      <div class="col-md-10" style="padding-left: 8vw">
         <h3>Codeforces</h3>
         <hr />
         <div class="tab-content profile-tab">
@@ -200,7 +200,7 @@
         </div>
       </div>
 
-      <div class="col-md-8" style="padding-left: 8vw">
+      <div class="col-md-10" style="padding-left: 8vw">
         <h3>Lichess</h3>
         <hr />
         <div class="tab-content profile-tab">
@@ -274,6 +274,20 @@
           {%endfor%}
         </ol>
         <hr />
+        <h3>Codeforces Upcoming Contest</h3>
+        <hr />
+        <ol>
+          {% for contest in codeforces.contests|slice:":10"%}
+          <li class="list">
+            <span
+              >{{forloop.counter}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {{contest.Contest}}</span
+            ><span class="date">{{contest.timing}}</span>
+          </li>
+          {%endfor%}
+        </ol>
+        <hr />
+        
       </div>
       </div>
       </div>
