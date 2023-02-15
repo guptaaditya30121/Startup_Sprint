@@ -110,6 +110,7 @@
     justify-content: space-between;
   }
 </style>
+<button type="button" class="btn btn-primary btn-lg" style="float:right; margin-right:20px;">Log Out</button>
 <div class="container emp-profile">
   <form method="post">
     <div class="row">
@@ -125,23 +126,24 @@
       <br />
       <div class="col-md-6">
         <div class="profile-head">
-          <h1 style="font-family:Lucida Sans; margin-left:40px;">{{user.username}}</h1>
+          <h1 style="font-family:Lucida Sans; margin-left:100px;">{{user.username}}</h1>
           {% comment %}
           <h3>Total Points :{{user.}}</h3>
           {% endcomment %}
+          
+          <h4 style="margin-top:50px; color:grey; margin-left:100px;"><em>"</em>Inspiration does exist, but it must find you working.<em>"</em></h4>
           {% if codeforces %}
-          <h4 style="margin-top:50px; color:grey; margin-left:40px;"><em>"</em>Inspiration does exist, but it must find you working.<em>"</em></h4>
           {% else %}
-          <from>
+          <from style="margin-left:100px;">
             {% csrf_token %}
-            <h6 style="color:purple; margin-top:100px ">Enter your codeforces handle</h6>
+            <h6 style="color:purple; margin-top:100px; ">Enter your codeforces handle</h6>
           <input
             name="codeforces_handle"
             type="text"
             required
           />
           <input type="submit">
-          </form>
+          </form style="margin-left:100px;">
           {% endif %}
           {% if lichess %}
           {% else %}
@@ -165,6 +167,7 @@
     <br />
 
     <div class="row">
+      
       <div class="col-md-10" style="padding-left: 8vw">
         <h3>Codeforces</h3>
         <hr />
@@ -294,4 +297,5 @@
     </div>
   </form>
 </div>
+
 {% endblock content %}
