@@ -4,7 +4,9 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib import messages
 from django.conf import settings
 from .models import User
+from .getDetails import UserData
 import requests
+import json
 
 # Create your views here.
 
@@ -41,14 +43,21 @@ def register(request):
 def profile(request):
     user = request.user
     response = {'user': user, 'codeforces': 0,
-                'codeforces_history': 0, 'lichess': 0, 'lichess_history': 0}
+                'lichess': False}
     for handle in user.handles.all():
         if str(handle.handle_domain) == 'https://codeforces.com/':
-            response.update({'codeforces': requests.get(
-                f'https://codeforces.com/api/user.info?handles={handle.handleName}').json()['result'][0]})
-        if str(handle.handle_domain) == 'https://lichess.org/':
-            response.update({'lichess': requests.get(
-                f'https://lichess.org/api/user/{handle.handleName}').json()})
+            response.update({'codeforces': UserData(
+                handle.handleName).get_details('codeforces')})
+    # response.update({'codeforces_history': requests.get(
+    #     f'https://codeforces.com/api/user.info?handles={handle.handleName}').json()['result'][0]})
+    if str(handle.handle_domain) == 'https://lichess.org/':
+        response.update({'lichess': requests.get(
+            f'https://lichess.org/api/user/{handle.handleName}').json()})
+        resp = requests.get(
+            f'https://lichess.org/api/games/user/{handle.handleName}?max=10', headers={'Accept': 'application/x-ndjson'})
+        list_resp = resp.text.splitlines()
+        json_resp = list(map(lambda x: json.loads(x), list_resp))
+        response.update({'lichess_history': json_resp})
 
     print(response)
     return render(request, 'main/profile.html', response)

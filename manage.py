@@ -2,10 +2,12 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from gevent import monkey
 
 
 def main():
     """Run administrative tasks."""
+    monkey.patch_all()
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Sprint.settings')
     try:
         from django.core.management import execute_from_command_line
