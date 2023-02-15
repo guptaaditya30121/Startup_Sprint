@@ -50,18 +50,23 @@ def profile(request):
                 handle.handleName).get_details('codeforces')})
     # response.update({'codeforces_history': requests.get(
     #     f'https://codeforces.com/api/user.info?handles={handle.handleName}').json()['result'][0]})
-    if str(handle.handle_domain) == 'https://lichess.org/':
-        response.update({'lichess': requests.get(
-            f'https://lichess.org/api/user/{handle.handleName}').json()})
-        resp = requests.get(
-            f'https://lichess.org/api/games/user/{handle.handleName}?max=10', headers={'Accept': 'application/x-ndjson'})
-        list_resp = resp.text.splitlines()
-        json_resp = list(map(lambda x: json.loads(x), list_resp))
-        response.update({'lichess_history': json_resp})
+        if str(handle.handle_domain) == 'https://lichess.org/':
+            response.update({'lichess': requests.get(
+                f'https://lichess.org/api/user/{handle.handleName}').json()})
+            resp = requests.get(
+                f'https://lichess.org/api/games/user/{handle.handleName}?max=10', headers={'Accept': 'application/x-ndjson'})
+            list_resp = resp.text.splitlines()
+            json_resp = list(map(lambda x: json.loads(x), list_resp))
+            response.update({'lichess_history': json_resp})
 
     print(response)
     return render(request, 'main/profile.html', response)
 
+def leaderboard(request):
+    return render(request , 'main/leaderboard.html')
+
+def coupon_page(request):
+    return render(request, 'main/coupon.html')
 
 @login_required(login_url='login')
 def logout_view(request):
