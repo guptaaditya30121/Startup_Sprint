@@ -281,12 +281,12 @@
         <h3>Codeforces Upcoming Contest</h3>
         <hr />
         <ol>
-          {% for contest in codeforces.contests|slice:":10"%}
-          <li class="list">
-            <span
+          {% for contest in upcoming%}
+        <li class="list">
+            <a href={{contest.hostingSite}}><span
               >{{forloop.counter}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {{contest.Contest}}</span
-            ><span class="date">{{contest.timing}}</span>
+              {{contest.name}}</span
+            ></a><span class="date">{{contest.timing}}</span>
           </li>
           {%endfor%}
         </ol>

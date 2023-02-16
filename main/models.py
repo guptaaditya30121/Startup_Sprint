@@ -41,6 +41,7 @@ class Contest(models.Model):
     hostingSite = models.CharField(max_length=300)
     participantsRegistered = models.IntegerField(default=0)
     # only register on site
+    name = models.CharField(max_length=300, blank=True)
     finished = models.BooleanField(default=False)
     timing = models.DateTimeField()
     domain_contest = models.ForeignKey(
@@ -80,7 +81,8 @@ class Handle(models.Model):
     def __str__(self):
         return str(self.handleName)
 
+
 class Points(models.Model):
-    score=models.IntegerField(default=0)
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
-    contest=models.ForeignKey(Contest,on_delete=models.CASCADE)
+    score = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contest = models.ForeignKey(Contest, on_delete=models.CASCADE)

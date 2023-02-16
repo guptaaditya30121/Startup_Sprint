@@ -5,6 +5,6 @@ urlpatterns = [
     path('', views.login, name="login"),
     path('register', views.register, name="register"),
     path('profile', views.profile, name="profile"),
-    path('leaderboard',views.leaderboard, name="leaderboard"),
-    path('coupon',views.coupon_page, name="coupon_page")
+    path('leaderboard/<int:id>', views.leaderboard, name="leaderboard"),
+    path('coupon', views.coupon_page, name="coupon_page")
 ]

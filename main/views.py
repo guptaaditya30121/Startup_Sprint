@@ -64,7 +64,8 @@ def profile(request):
         if str(handle.handle_domain) == 'https://codeforces.com/':
             response.update({'codeforces': UserData(
                 handle.handleName).get_details('codeforces')})
-            contests = Contest.objects.filter(finished=False)
+            contests = Contest.objects.filter(
+                finished=False).order_by('timing')
             response.update({'upcoming': contests})
         if str(handle.handle_domain) == 'https://lichess.org/':
             response.update({'lichess': requests.get(
