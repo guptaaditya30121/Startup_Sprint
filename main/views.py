@@ -45,6 +45,13 @@ def register(request):
 def profile(request):
     user = request.user
     if request.method == 'POST':
+        url = request.POST.get('url')
+        if url:
+            contest = Contest.objects.filter(hostingSite=url).first()
+            user = request.user
+            user.contest_history.add(contest)
+            user.save()
+            return redirect(url)
         codeforces_handle = request.POST.get('codeforces_handle')
         lichess_handle = request.POST.get('lichess_handle')
         if codeforces_handle:
@@ -56,7 +63,7 @@ def profile(request):
                             handleName=lichess_handle, user=user)
             handle.save()
 
-    response = {'user': user, 'codeforces': 0,
+    response = {'user': user, 'codeforces': 0, 'codeforces_history': False,
                 'lichess': False, 'lichess_history': False, 'upcoming': False}
     for handle in Handle.objects.filter(user=user):
         print(datetime.timestamp(handle.createdAt))
@@ -64,6 +71,8 @@ def profile(request):
         if str(handle.handle_domain) == 'https://codeforces.com/':
             response.update({'codeforces': UserData(
                 handle.handleName).get_details('codeforces')})
+            history = user.contest_history.filter(finished=True)
+            response.update({'codeforces_history': history})
             contests = Contest.objects.filter(
                 finished=False).order_by('timing')
             response.update({'upcoming': contests})
@@ -74,7 +83,6 @@ def profile(request):
             resp = requests.get(
                 f'https://lichess.org/api/games/user/{handle.handleName}?since={datetime.timestamp(handle.createdAt)}&max=10', headers={'Accept': 'application/x-ndjson'})
             print('done12')
-
             list_resp = resp.text.splitlines()
             json_resp = list(map(lambda x: json.loads(x), list_resp))
             response.update({'lichess_history': json_resp})
@@ -85,16 +93,30 @@ def profile(request):
 
 @login_required(login_url='login')
 def coupon_page(request):
+    if request.method == 'POST':
+        cost = int(request.POST.get('coupon'))
+        if int(request.user.user_points) >= cost:
+            request.user.user_points -= cost
+            request.user.user_points.save()
     return render(request, 'main/coupon.html')
 
 
 @login_required(login_url='login')
 def leaderboard(request, id):
+    url = f'https://codeforces.com/contestRegistration/{id}'
     leaderboard = Points.objects.filter(
-        contest__hostingSite=id).order_by('score')
+        contest__hostingSite=url).order_by('score')
+    point_table = [35, 15, 15, 5, 5, 5, 5, 5, 5, 5]
+    for i, mem in enumerate(leaderboard):
+        mem.user.user_points = point_table[i]
+        mem.user.save()
     return render(request, 'main/leaderboard.html', {'lead': leaderboard})
 
 
 @login_required(login_url='login')
 def logout_view(request):
     logout(request)
+
+
+def add_contest(request):
+    return None

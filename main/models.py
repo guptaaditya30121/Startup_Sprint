@@ -40,6 +40,7 @@ class Domain(models.Model):
 class Contest(models.Model):
     hostingSite = models.CharField(max_length=300)
     participantsRegistered = models.IntegerField(default=0)
+    ref = models.CharField(max_length=300, blank=True)
     # only register on site
     name = models.CharField(max_length=300, blank=True)
     finished = models.BooleanField(default=False)
@@ -56,7 +57,7 @@ class User(AbstractUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     recentActivity = models.ForeignKey(
         Contest, on_delete=models.SET_NULL, null=True, related_name="recent_activity")
-    streak = models.IntegerField(default=0)
+    user_points = models.IntegerField(default=0)
     contest_history = models.ManyToManyField(
         Contest, related_name="all_contests", blank=True)
     domain = models.ManyToManyField(Domain)
