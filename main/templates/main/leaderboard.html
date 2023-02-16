@@ -1,9 +1,6 @@
 {% extends '../layout.html'%} {% block content %} {% if not lead %}
 <style>
-  .body {
-    display: flex;
-    justify-content: center;
-    align-item: center;
+  body {
     background: -webkit-linear-gradient(
       left,
       hsl(218, 41%, 45%),
@@ -11,9 +8,18 @@
     );
     color: #333;
   }
+  .center{color:white;
+  position:absolute;
+  top:40vh;
+  left:35vw}
 </style>
+<button type="button" class="btn btn-warning btn-lg" style=" margin-left:20px;"><a href={% url "profile"%} style="text-decoration:none; color:white;">Home</a></button>
+<button type="button" class="btn btn-primary btn-lg" style=" margin-left:70vw;"><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
+<button type="button" class="btn btn-warning btn-lg" ><a href={% url "coupon_page" %} style="text-decoration:none; color:white;">Rewards</a></button>
+<div class="center">
 <h1>Updating Leaderboard</h1>
-<h2>Please Wait for a while......</h2>
+<h2>Please Wait......</h2>
+</div>
 {% else %}
 <style>
   @import url("https://fonts.googleapis.com/css?family=Red+Hat+Display:400,900&display=swap");
@@ -176,8 +182,11 @@
     opacity: 0.8;
   }
 </style>
+<button type="button" class="btn btn-warning btn-lg" style=" margin-left:20px;"><a href={% url "profile"%} style="text-decoration:none; color:white;">Home</a></button>
+<button type="button" class="btn btn-primary btn-lg" style=" margin-left:70vw;"><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
+<button type="button" class="btn btn-warning btn-lg" ><a href={% url "coupon_page" %} style="text-decoration:none; color:white;">Rewards</a></button>
 <div class="addi">
-  <h1>Leaderboard for</h1>
+  <h1>Leaderboard for {{contest}}</h1>
 </div>
 <div class="center">
   <div class="top3">
