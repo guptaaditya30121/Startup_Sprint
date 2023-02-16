@@ -34,7 +34,7 @@
                             <tr class="small text-uppercase">
                                 <th scope="col">Coupon</th>
                                 <th scope="col" width="120">Quantity</th>
-                                <th scope="col" width="120">Desciption</th>
+                                <th scope="col" width="120">Points</th>
                                 <th scope="col" class="text-right d-none d-md-block" width="200"></th>
                             </tr>
                         </thead>
@@ -43,8 +43,8 @@
                                 <td>
                                     <figure class="itemside align-items-center">
                                         <div class="aside"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu-JxuDBGV26p7Q2Tq-3L9By2CGBrixYvtKg&usqp=CAU" class="img-sm"></div>
-                                        <figcaption class="info"> <a href="#" class="title text-dark" >Tshirt with round neck</a>
-                                            <p class="text-muted small">SIZE: L <br> Brand: MAXTRA</p>
+                                        <figcaption class="info"> <a href="#" class="title text-dark" >50% off upto rupees 300</a>
+                                            <p class="text-muted small">Canteen <br>Manas</p>
                                         </figcaption>
                                         
                                     </figure>
@@ -52,7 +52,7 @@
                                 <td> 
                                     1
                                 <td>
-                                    <div class="price-wrap">$10.00 </div>
+                                    <div class="price-wrap">50</div>
                                 </td>
                                 <td class="text-right d-none d-md-block"> <a href="" class="btn btn-light big" name="redeem"> Redeem</a> </td>
                                 
@@ -64,32 +64,49 @@
                                     
                                     <figure class="itemside align-items-center">
                                         <div class="aside"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu-JxuDBGV26p7Q2Tq-3L9By2CGBrixYvtKg&usqp=CAU" class="img-sm"></div>
-                                        <figcaption class="info"> <a href="#" class="title text-dark">Flower Formal T-shirt</a>
-                                            <p class="text-muted small">SIZE: L <br> Brand: ADDA </p>
+                                        <figcaption class="info"> <a href="#" class="title text-dark">30% off upto rupees 200</a>
+                                            <p class="text-muted small">Juice Centre<br>Manas </p>
                                         </figcaption>
                                     </figure>
                                 </td>
                                 <td> 1
                                 <td>
-                                    <div class="price-wrap"> $15</div>
+                                    <div class="price-wrap"> 35</div>
                                 </td>
                                 <td class="text-right d-none d-md-block"> <a href="" class="btn btn-light btn-round big" name="redeem">Redeem</a> </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <figure class="itemside align-items-center">
+                                        <div class="aside"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu-JxuDBGV26p7Q2Tq-3L9By2CGBrixYvtKg&usqp=CAU" class="img-sm"></div>
+                                        <figcaption class="info"> <a href="#" class="title text-dark">20% off upto rupees 200</a>
+                                            <p class="small text-muted">Juice Centre<br>Manas</p>
+                                        </figcaption>
+                                    </figure>
+                                </td>
+                                <td> 1
+                                <td>
+                                    <div class="price-wrap price">15</div>
+                                </td>
+                                <td class="text-right d-none d-md-block">  <a href="" class="btn btn-light btn-round big" name="redeem"> Redeem</a> </td>
                             </tr>
                             <tr>
                                 <td>
                                     <figure class="itemside align-items-center">
                                         <div class="aside"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu-JxuDBGV26p7Q2Tq-3L9By2CGBrixYvtKg&usqp=CAU" class="img-sm"></div>
-                                        <figcaption class="info"> <a href="#" class="title text-dark">Printed White Tshirt</a>
-                                            <p class="small text-muted">SIZE:M <br> Brand: Cantabil</p>
+                                        <figcaption class="info"> <a href="#" class="title text-dark">10% off upto 100</a>
+                                            <p class="small text-muted">Juice Centre<br>Manas</p>
                                         </figcaption>
                                     </figure>
                                 </td>
                                 <td> 1
                                 <td>
-                                    <div class="price-wrap price">50$</div>
+                                    <div class="price-wrap price">10</div>
                                 </td>
                                 <td class="text-right d-none d-md-block">  <a href="" class="btn btn-light btn-round big" name="redeem"> Redeem</a> </td>
                             </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -98,7 +115,7 @@
         <div class="col-lg-3">
             <div class="card mb-3">
                 <div class="card-body">
-                   Total points earned =
+                   Total points earned = {{user.points}}
                 </div>
             </div>
             

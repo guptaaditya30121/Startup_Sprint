@@ -180,22 +180,22 @@ body, html {
     <div class="top3">
       <div class="two item">
         <div class="pos">
-          2
+          {{lead.1.user}}
         </div>       <div class="name">
           
         </div>
         <div class="score">
-          6453
+          15
         </div>
       </div>
       <div class="one item">
         <div class="pos">
           1
         </div>       <div class="name">
-          Clifford James
+          {{lead.1.user}}
         </div>
         <div class="score">
-          6794
+          35
         </div>
       </div>
       <div class="three item">
@@ -203,7 +203,7 @@ body, html {
           3
         </div>
         <div class="name">
-          Nevaeh Silva
+          {{lead.2.user}}
         </div>
         <div class="score">
           6034
@@ -214,12 +214,12 @@ body, html {
       {% for participants in lead|slice:"3:" %}
       <div class="item">
         <div class="pos">
-          4
+          {{forloop.counter+3}}
         </div>       <div class="name">
-          Clayton Watson
+          {{participants.user}}
         </div>
         <div class="score">
-          5980
+          5
         </div>
       </div>
       {%  endfor %}
