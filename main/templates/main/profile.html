@@ -110,7 +110,8 @@
     justify-content: space-between;
   }
 </style>
-<button type="button" class="btn btn-primary btn-lg" style="float:right; margin-right:20px;">Log Out</button>
+<button type="button" class="btn btn-primary btn-lg" style="float:right; margin-right:20px;"><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
+<button type="button" class="btn btn-warning btn-lg" style=" margin-left:78vw;"><a href={% url "coupon_page" %} style="text-decoration:none; color:white;">Rewards</a></button>
 <div class="container emp-profile">
   <form method="post">
     <div class="row">
@@ -126,7 +127,7 @@
       <br />
       <div class="col-md-6">
         <div class="profile-head">
-          <h1 style="font-family:Lucida Sans; margin-left:100px;">{{user.username}}</h1>
+          <h1 style="font-family:Lucida Sans; margin-left:100px;">{{user.username|capfirst}}</h1>
           {% comment %}
           <h3>Total Points :{{user.}}</h3>
           {% endcomment %}
