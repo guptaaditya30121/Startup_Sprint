@@ -236,6 +236,7 @@
         <h3>Lichess History</h3>
         <hr />
         <ol>
+          {% if lichess_history %}
           {% for match in lichess_history|slice:":10"%}
           <li class="list">
             <span
@@ -243,7 +244,7 @@
               {{match.perf}}</span
             ><span class="date">{{match.status}}</span>
           </li>
-          {%endfor%}
+          {%endfor%}{% endif %}
         </ol>
         <hr />
       </div>

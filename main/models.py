@@ -50,14 +50,6 @@ class Contest(models.Model):
         return str(self.hostingSite)
 
 
-class Handle(models.Model):
-    handleName = models.CharField(max_length=150)
-    handle_domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.handleName)
-
-
 class User(AbstractUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
@@ -67,7 +59,6 @@ class User(AbstractUser, PermissionsMixin):
     contest_history = models.ManyToManyField(
         Contest, related_name="all_contests", blank=True)
     domain = models.ManyToManyField(Domain)
-    handles = models.ManyToManyField(Handle)
 
     # image = models.ImageField(default='user.png', upload_to='profile_pics')
     # bio = models.TextField(null=True, blank=True)
@@ -77,3 +68,19 @@ class User(AbstractUser, PermissionsMixin):
 
     def __str__(self):
         return str(self.username)
+
+
+class Handle(models.Model):
+    handleName = models.CharField(max_length=150)
+    handle_domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.handleName)
+
+class Points(models.Model):
+    score=models.IntegerField(default=0)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    contest=models.ForeignKey(Contest,on_delete=models.CASCADE)
