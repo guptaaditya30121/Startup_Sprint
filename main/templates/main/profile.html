@@ -254,12 +254,12 @@
         <h3>Codeforces History</h3>
         <hr />
         <ol>
-          {% for contest in codeforces.contests|slice:":10"%}
+          {% for contest in codeforces_history|slice:":10"%}
           <li class="list">
-            <span
+            <a href={% url 'leaderboard' contest.ref %}><span
               >{{forloop.counter}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {{contest.Contest}}</span
-            ><span class="date">{{contest.timing}}</span>
+              {{contest.name}}</span
+            ></a><span class="date">{{contest.timing}}</span>
           </li>
           {%endfor%}
         </ol>
@@ -283,10 +283,13 @@
         <ol>
           {% for contest in upcoming%}
         <li class="list">
-            <a href={{contest.hostingSite}}><span
+            <form method='POST'>
+              {% csrf_token %}
+              <input type="hidden" value={{contest.hostingSite}} name='url'></input><button style="outline:none;border: none;
+              background: none;" type='submit'
               >{{forloop.counter}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {{contest.name}}</span
-            ></a><span class="date">{{contest.timing}}</span>
+              {{contest.name}}</button
+            ></form><span class="date">{{contest.timing}}</span>
           </li>
           {%endfor%}
         </ol>

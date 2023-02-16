@@ -6,5 +6,6 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('profile', views.profile, name="profile"),
     path('leaderboard/<int:id>', views.leaderboard, name="leaderboard"),
-    path('coupon', views.coupon_page, name="coupon_page")
+    path('coupon', views.coupon_page, name="coupon_page"),
+    # path('add_contest', views.add_contest, name='add_contest')
 ]

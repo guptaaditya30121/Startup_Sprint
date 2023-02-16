@@ -33,7 +33,7 @@ def UpdateData(get_response):
                 name = contest['name']
                 if (time.time() < contest['startTimeSeconds']) and not Contest.objects.filter(hostingSite=url).first():
                     upcoming_contest = Contest(hostingSite=url, timing=datetime.fromtimestamp(
-                        contest['startTimeSeconds']), domain_contest=domain, name=name)
+                        contest['startTimeSeconds']), domain_contest=domain, name=name, ref=id)
                     upcoming_contest.save()
                 print(contest)
         response = get_response(request)
