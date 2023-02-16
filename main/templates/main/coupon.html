@@ -54,7 +54,12 @@
                                 <td>
                                     <div class="price-wrap">50</div>
                                 </td>
-                                <td class="text-right d-none d-md-block"> <a href="" class="btn btn-light big" name="redeem"> Redeem</a> </td>
+                                <td class="text-right d-none d-md-block">  <form>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="coupon" value="50"></input>
+                                    
+                                    <button type="submit" class="btn btn-light btn-round big" name="redeem">Redeem</button>
+                                </form> </td>
                                 
                             </tr>
                            
@@ -73,7 +78,12 @@
                                 <td>
                                     <div class="price-wrap"> 35</div>
                                 </td>
-                                <td class="text-right d-none d-md-block"> <a href="" class="btn btn-light btn-round big" name="redeem">Redeem</a> </td>
+                                <td class="text-right d-none d-md-block">  <form>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="coupon" value="35"></input>
+                                   
+                                    <button type="submit" class="btn btn-light btn-round big" name="redeem">Redeem</button>
+                                </form></td>
                             </tr>
                             
                             <tr>
@@ -89,7 +99,14 @@
                                 <td>
                                     <div class="price-wrap price">15</div>
                                 </td>
-                                <td class="text-right d-none d-md-block">  <a href="" class="btn btn-light btn-round big" name="redeem"> Redeem</a> </td>
+                                <td class="text-right d-none d-md-block"> 
+                                     <form>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="coupon" value="15"></input>
+                                       
+                                        <button type="submit" class="btn btn-light btn-round big" name="redeem">Redeem</button>
+                                    </form>
+                                    </td>
                             </tr>
                             <tr>
                                 <td>
@@ -104,7 +121,12 @@
                                 <td>
                                     <div class="price-wrap price">10</div>
                                 </td>
-                                <td class="text-right d-none d-md-block">  <a href="" class="btn btn-light btn-round big" name="redeem"> Redeem</a> </td>
+                                <td class="text-right d-none d-md-block">   <form>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="coupon" value="10"></input>
+                                   
+                                    <button type="submit" class="btn btn-light btn-round big" name="redeem">Redeem</button>
+                                </form></td>
                             </tr>
                             
                         </tbody>
