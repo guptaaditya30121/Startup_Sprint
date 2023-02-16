@@ -10,6 +10,22 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+<style>
+    .messages{
+        display:flex;
+        width:100vw;
+        justify-content:center;
+        align-items:center;
+        position:absolute;
+        height:2vh;
+        min-height:50px;
+        font-size:2vw;
+        color:white;
+    }
+    .messages li{
+        decoration:none;
+    }
+</style>
 <body>
     {% if messages %}
     <ul class="messages">

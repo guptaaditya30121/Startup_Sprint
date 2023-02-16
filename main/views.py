@@ -97,8 +97,12 @@ def coupon_page(request):
         cost = int(request.POST.get('coupon'))
         if int(request.user.user_points) >= cost:
             request.user.user_points -= cost
-            request.user.user_points.save()
-    return render(request, 'main/coupon.html')
+            request.user.save()
+            messages.success(request, "Successful")
+        else:
+            messages.error(request, "You don't have enough points")
+    points = request.user.user_points
+    return render(request, 'main/coupon.html', {'points': points})
 
 
 @login_required(login_url='login')
