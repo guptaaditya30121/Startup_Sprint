@@ -83,8 +83,8 @@ def profile(request):
 
 
 @login_required(login_url='login')
-def upcoming(request):
-    return render(request, 'main/upcoming.html', {'contests': contests})
+def coupon_page(request):
+    return render(request, 'main/coupon.html')
 
 
 @login_required(login_url='login')
