@@ -16,7 +16,7 @@ class UserAdminConfig(UserAdmin):
     list_display = ('email', 'username',
                     'is_active', 'is_staff', 'id', 'is_superuser')
     fieldsets = (
-        (None, {'fields': ('email', 'username', 'password', 'contest_history', 'domain', 'handles',
+        (None, {'fields': ('email', 'username', 'password', 'contest_history', 'domain',
          'streak')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
     )
