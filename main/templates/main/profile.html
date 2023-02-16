@@ -255,6 +255,7 @@
         <h3>Codeforces History</h3>
         <hr />
         <ol>
+          {% if codeforces_history%}
           {% for contest in codeforces_history|slice:":10"%}
           <li class="list">
             <a href={% url 'leaderboard' contest.ref %}><span
@@ -263,6 +264,7 @@
             ></a><span class="date">{{contest.timing}}</span>
           </li>
           {%endfor%}
+          {%endif%}
         </ol>
         <hr />
         <h3>Lichess History</h3>
@@ -282,6 +284,7 @@
         <h3>Codeforces Upcoming Contest</h3>
         <hr />
         <ol>
+          {% if upcoming %}
           {% for contest in upcoming%}
         <li class="list">
             <form method='POST'>
@@ -293,6 +296,7 @@
             ></form><span class="date">{{contest.timing}}</span>
           </li>
           {%endfor%}
+          {%endif%}
         </ol>
         <hr />
         

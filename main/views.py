@@ -55,10 +55,13 @@ def profile(request):
         codeforces_handle = request.POST.get('codeforces_handle')
         lichess_handle = request.POST.get('lichess_handle')
         if codeforces_handle:
-            handle = Handle(handle_domain='https://codeforces.com/',
+            domain = Domain.objects.filter(
+                name='https://codeforces.com/').first()
+            handle = Handle(handle_domain=domain,
                             handleName=codeforces_handle, user=user)
             handle.save()
         elif lichess_handle:
+            domain = Domain.objects.filter(name='https://lichess.org/').first()
             handle = Handle(handle_domain='https://lichess.org/',
                             handleName=lichess_handle, user=user)
             handle.save()
