@@ -1,4 +1,21 @@
 {% extends '../layout.html'%} {% block content %}
+{% if lead %}
+<style>
+  .body{
+    display: flex;
+    justify-content: center;
+    align-item: center;
+    background: -webkit-linear-gradient(
+      left,
+      hsl(218, 41%, 45%),
+      hsl(218, 41%, 15%)
+    );
+    color: #333;
+  }
+</style>
+<h1>Updating Leaderboard</h1>
+<h2>Please Wait for a while......</h2>
+{% else %}
 <style>
     @import url("https://fonts.googleapis.com/css?family=Red+Hat+Display:400,900&display=swap");
 body, html {
@@ -163,22 +180,22 @@ body, html {
     <div class="top3">
       <div class="two item">
         <div class="pos">
-          2
+          {{lead.1.user}}
         </div>       <div class="name">
-          Edgar Soto
+          
         </div>
         <div class="score">
-          6453
+          15
         </div>
       </div>
       <div class="one item">
         <div class="pos">
           1
         </div>       <div class="name">
-          Clifford James
+          {{lead.1.user}}
         </div>
         <div class="score">
-          6794
+          35
         </div>
       </div>
       <div class="three item">
@@ -186,7 +203,7 @@ body, html {
           3
         </div>
         <div class="name">
-          Nevaeh Silva
+          {{lead.2.user}}
         </div>
         <div class="score">
           6034
@@ -194,81 +211,19 @@ body, html {
       </div>
     </div>
     <div class="list">
+      {% for participants in lead|slice:"3:" %}
       <div class="item">
         <div class="pos">
-          4
+          {{forloop.counter+3}}
         </div>       <div class="name">
-          Clayton Watson
+          {{participants.user}}
         </div>
         <div class="score">
-          5980
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
           5
         </div>
-        <div class="name">
-          Debbie Lane
-        </div>
-        <div class="score">
-          5978
-        </div>
       </div>
-      <div class="item">
-        <div class="pos">
-          6
-        </div>
-        <div class="name">
-          Gabriella Steward
-        </div>
-        <div class="score">
-          5845
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          7
-        </div>
-        <div class="name">
-          Nina Perkins
-        </div>
-        <div class="score">
-          5799
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          8
-        </div>       <div class="name">
-          Dennis Henry
-        </div>
-        <div class="score">
-          5756
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          9
-        </div>
-        <div class="name">
-          Courtney Fuller
-        </div>
-        <div class="score">
-          5713
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          10
-        </div>
-        <div class="name">
-          Joan Wood
-        </div>
-        <div class="score">
-          5674
-        </div>
-      </div>
+      {%  endfor %}
     </div>
   </div>
+  {% endif %}
   {% endblock content %}
