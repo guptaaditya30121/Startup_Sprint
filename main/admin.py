@@ -1,8 +1,7 @@
 from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Contest, Domain, Handle, Points
-from django.forms import Textarea
+from .models import User, Contest, Domain, Handle, Points, Time
 
 # Register your models here.
 
@@ -34,3 +33,4 @@ admin.site.register(Contest)
 admin.site.register(Domain)
 admin.site.register(Handle)
 admin.site.register(Points)
+admin.site.register(Time)

@@ -76,6 +76,7 @@ class Handle(models.Model):
     handleName = models.CharField(max_length=150)
     handle_domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
     createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
 
@@ -87,3 +88,9 @@ class Points(models.Model):
     score = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     contest = models.ForeignKey(Contest, on_delete=models.CASCADE)
+    alloted = models.BooleanField(default=False)
+
+
+class Time(models.Model):
+    time = models.DateTimeField(auto_now=True)
+    updater = models.IntegerField(default=0)

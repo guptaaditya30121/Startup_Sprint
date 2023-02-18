@@ -2,13 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib import messages
-from django.conf import settings
 from .models import User, Handle, Contest, Domain, Points
-from .getDetails import UserData
-import requests
 import json
 from datetime import datetime
 import time
+from urllib.request import urlopen, Request
 
 # Create your views here.
 
@@ -69,25 +67,36 @@ def profile(request):
     response = {'user': user, 'codeforces': 0, 'codeforces_history': False,
                 'lichess': False, 'lichess_history': False, 'upcoming': False}
     for handle in Handle.objects.filter(user=user):
-        print(datetime.timestamp(handle.createdAt))
-        print(handle.handleName)
+        # print(datetime.timestamp(handle.createdAt))
+        # print(handle.handleName)
         if str(handle.handle_domain) == 'https://codeforces.com/':
-            response.update({'codeforces': UserData(
-                handle.handleName).get_details('codeforces')})
+            response.update({'codeforces': json.load(urlopen(
+                f'https://codeforces.com/api/user.info?handles={handle.handleName}'))['result'][0]})
             history = user.contest_history.filter(finished=True)
             response.update({'codeforces_history': history})
             contests = Contest.objects.filter(
                 finished=False).order_by('timing')
             response.update({'upcoming': contests})
         if str(handle.handle_domain) == 'https://lichess.org/':
-            response.update({'lichess': requests.get(
-                f'https://lichess.org/api/user/{handle.handleName}').json()})
-            print('done1')
-            resp = requests.get(
-                f'https://lichess.org/api/games/user/{handle.handleName}?since={datetime.timestamp(handle.createdAt)}&max=10', headers={'Accept': 'application/x-ndjson'})
-            print('done12')
-            list_resp = resp.text.splitlines()
+            resp = urlopen(f'https://lichess.org/api/user/{handle.handleName}')
+            resp = json.load(resp)
+            response.update({'lichess': resp})
+            resp = urlopen(Request(
+                f'https://lichess.org/api/games/user/{handle.handleName}?since={datetime.timestamp(handle.createdAt)}&max=10', headers={'Accept': 'application/x-ndjson'}))
+            # 'http://localhost:3000/result'))
+            list_resp = resp.read().splitlines()
+            # print(json_resp)
+            # json_resp = json.load(resp)
+            # list_resp = resp.text.splitlines()
             json_resp = list(map(lambda x: json.loads(x), list_resp))
+            for match in json_resp:
+                print(match['createdAt'], datetime.timestamp(handle.updatedAt))
+                if match['rated'] and match['createdAt']/1000 >= datetime.timestamp(handle.updatedAt):
+                    print(match['players'][match['winner']]['user']['name'],)
+                    if match['players'][match['winner']]['user']['name'] == handle.handleName:
+                        user.user_points += 1
+                        user.save()
+            handle.save()
             response.update({'lichess_history': json_resp})
 
     print(response)
@@ -111,12 +120,19 @@ def coupon_page(request):
 @login_required(login_url='login')
 def leaderboard(request, id):
     url = f'https://codeforces.com/contestRegistration/{id}'
-    leaderboard = Points.objects.filter(
-        contest__hostingSite=url).order_by('score')
+    table = Points.objects.filter(
+        contest__hostingSite=url)
+    leaderboard = table.order_by('score')
     point_table = [35, 15, 15, 5, 5, 5, 5, 5, 5, 5]
     for i, mem in enumerate(leaderboard):
-        mem.user.user_points = point_table[i]
-        mem.user.save()
+        if not mem.alloted:
+            if i > 9:
+                point = 1
+            else:
+                point = point_table[i]
+            mem.user.user_points += point
+            mem.alloted = True
+            mem.user.save()
     return render(request, 'main/leaderboard.html', {'lead': leaderboard})
 
 

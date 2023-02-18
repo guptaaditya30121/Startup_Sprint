@@ -25,8 +25,6 @@
   @import url("https://fonts.googleapis.com/css?family=Red+Hat+Display:400,900&display=swap");
   body,
   html {
-    height: 100%;
-    width: 100%;
 
     background: -webkit-linear-gradient(
       left,
@@ -203,7 +201,7 @@
     <div class="three item">
       <div class="pos">3</div>
       <div class="name">{{lead.2.user}}</div>
-      <div class="score">6034</div>
+      <div class="score">15</div>
     </div>
   </div>
   <div class="list">
@@ -211,7 +209,11 @@
     <div class="item">
       <div class="pos">{{forloop.counter3}}</div>
       <div class="name">{{participants.user}}</div>
+      {% if forloop.counter3 > 10%}
+      <div class="score">1</div>
+      {%else%}
       <div class="score">5</div>
+      {% endif %}
     </div>
     {% endfor %}
   </div>
