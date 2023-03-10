@@ -8,7 +8,8 @@
     );
     color: #333;
   }
-  .center{color:white;
+  .center{
+    color:white;
   position:absolute;
   top:40vh;
   left:35vw}
@@ -33,156 +34,82 @@
     );
     color: #333;
   }
-  .addi {
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-  }
-  .center {
-    margin-top: 100px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    font-family: "Red Hat Display", sans-serif;
-  }
-
-  .top3 {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    color: #4b4168;
-  }
-  .top3 .item {
-    box-sizing: border-box;
-    position: relative;
-    background: white;
-    width: 9rem;
-    height: 10rem;
-    text-align: center;
-    padding: 10px;
-    margin: 1rem 1rem 2rem;
-    border-radius: 0.5rem;
-    transform-origin: bottom;
-    cursor: pointer;
-    transition: transform 200ms ease-in-out;
-    box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.1),
-      0 1rem 2rem -1rem rgba(0, 0, 0, 0.3);
-  }
-  .top3 .item .pic {
-    position: absolute;
-    top: -2rem;
-    left: 2.5rem;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    margin-right: 1rem;
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
-      0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
-  }
-  .top3 .item .pos {
-    font-weight: 900;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-  .top3 .item .name {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-  }
-  .top3 .item .score {
-    opacity: 0.5;
-  }
-  .top3 .item .score:after {
-    display: block;
-    content: "points";
-    opacity: 0.5;
-  }
-  .top3 .item.one {
-    width: 10rem;
-    height: 11rem;
-
-    padding: 10px;
-  }
-  .top3 .item.one .pic {
-    width: 5rem;
-    height: 5rem;
-    left: 2.5rem;
-    padding: 10px;
-  }
-  .top3 .item:hover {
-    transform: scale(1.05);
-  }
-
-  .list {
-    padding-left: 2rem;
-    margin: 0 auto;
-  }
-  .list .item {
-    padding-left: 19px;
-    position: relative;
+  .addi{
     display: flex;
     align-items: center;
-    background: white;
-    height: 3rem;
-    border-radius: 4rem;
-    margin-bottom: 2rem;
-    background: #eaa786;
-    transform-origin: left;
-    cursor: pointer;
-    transition: transform 200ms ease-in-out;
-    box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.1),
-      0 1rem 2rem -1rem rgba(0, 0, 0, 0.3);
-  }
-  .list .item .pos {
-    font-weight: 900;
-    position: absolute;
-    left: -2rem;
-    text-align: center;
-    font-size: 1.25rem;
-    width: 1.5rem;
+    justify-content: center;
     color: white;
-    opacity: 0.6;
-    transition: opacity 200ms ease-in-out;
+    background-color: black;
+    padding: 20px;
+    margin-top: 20px;
+    
   }
-  .list .item .pic {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    margin-right: 1rem;
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
-      0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
+  .top3{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
   }
-  .list .item .name {
-    flex-grow: 2;
-    flex-basis: 10rem;
-    font-size: 1.1rem;
+  .top3 .item{
+    background-color:white;
+    color: black;
+    padding:40px;
+    padding-left:60px;
+    padding-right:60px;
+
+    margin: 15px;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
   }
-  .list .item .score {
-    margin-right: 1.5rem;
-    opacity: 0.5;
+  .top3 .pos{
+    font-size: 40px;
+    margin: 10px;
   }
-  .list .item .score:after {
-    margin-right: 1rem;
-    content: "points";
-    opacity: 0.5;
+  .top3 .score{
+    font-size: 20px;
+    color:orange;
   }
-  .list .item:hover {
-    transform: scale(1.05);
+  .top3 .two:hover{
+    padding:80px;
   }
-  .list .item:hover .pos {
-    opacity: 0.8;
+  .top3 .one:hover{
+    padding:80px;
+  }
+  .top3 .three:hover{
+    padding:80px;
+  }
+  .list{
+    margin-top:50px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  }
+  .list .item{
+    background-color:purple;
+    color:white;
+    padding-left:1vw;
+    padding-right:5vw;
+    margin:10px;
+    padding-top:1vw;
+    padding-bottom:1vw;
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-item:center;
+  }
+  .list .item .name{
+    padding-right:20vw;
+    padding-left:5vw;
   }
 </style>
-<button type="button" class="btn btn-warning btn-lg" style=" margin-left:20px;"><a href={% url "profile"%} style="text-decoration:none; color:white;">Home</a></button>
-<button type="button" class="btn btn-primary btn-lg" style=" margin-left:70vw;"><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
+<button type="button" class="btn btn-warning btn-lg"><a href={% url "profile"%} style="text-decoration:none; color:white;">Home</a></button>
 <button type="button" class="btn btn-warning btn-lg" ><a href={% url "coupon_page" %} style="text-decoration:none; color:white;">Rewards</a></button>
+<button type="button" class="btn btn-primary btn-lg" ><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
+
 <div class="addi">
   <h1>Leaderboard for {{contest}}</h1>
 </div>
@@ -207,9 +134,9 @@
   <div class="list">
     {% for participants in lead|slice:"3:" %}
     <div class="item">
-      <div class="pos">{{forloop.counter3}}</div>
+      <div class="pos1"></div>
       <div class="name">{{participants.user}}</div>
-      {% if forloop.counter3 > 10%}
+      {% if forloop.counter1 > 8 %}
       <div class="score">1</div>
       {%else%}
       <div class="score">5</div>
@@ -218,4 +145,13 @@
     {% endfor %}
   </div>
 </div>
-{% endif %} {% endblock content %}
+{% endif %} <script>
+  console.log()
+  var k = document.getElementsByClassName('pos1')
+console.log(k)
+  for (var i=0;i<k.length;i++)
+  {
+    k[i].innerHTML=i+4;
+  }
+</script>
+{% endblock content %}
