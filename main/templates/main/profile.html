@@ -136,7 +136,7 @@
           <h4 style="margin-top:50px; color:grey; margin-left:100px;"><em>"</em>Inspiration does exist, but it must find you working.<em>"</em></h4>
           {% if codeforces %}
           {% else %}
-          <from style="margin-left:100px;">
+          <form style="margin-left:100px;" method="POST">
             {% csrf_token %}
             <h6 style="color:purple; margin-top:100px; ">Enter your codeforces handle</h6>
           <input
@@ -149,7 +149,7 @@
           {% endif %}
           {% if lichess %}
           {% else %}
-          <form>
+          <form method="POST">
             {% csrf_token %}
             <h6 style="color:purple; margin-top:10px">Enter your lichess handle</h6>
           <input

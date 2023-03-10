@@ -10,20 +10,17 @@ def UpdateData(get_response):
 
     def middleware(request):
         Mtime = Time.objects.first()
-        if  not Mtime:
-            Mtime=Time(updater=0)
+        if not Mtime:
+            Mtime = Time(updater=0)
             Mtime.save()
-        print(time.time(), datetime.timestamp(Mtime.time))
-        if time.time()-datetime.timestamp(Mtime.time) < 1:
+        if time.time()-datetime.timestamp(Mtime.time) < 3*3600:
             response = get_response(request)
             return response
         else:
-            print('middleware running')
             Mtime.updater = 0
             Mtime.save()
             resp = json.load(urlopen(
-                'http://localhost:3000/result'))
-            # ['result']
+                'https://codeforces.com/api/contest.list?gym=false'))['result']
 
             for contest in resp:
                 id = contest['id']
@@ -32,9 +29,7 @@ def UpdateData(get_response):
                 if db_contest and not db_contest.finished and contest['phase'] == 'FINISHED':
                     db_contest.finished = True
                     db_contest.save()
-                    print('ipdate')
                     for user in User.objects.filter(contest_history__ref=db_contest.ref):
-                        print('w')
                         try:
                             handle = Handle.objects.filter(
                                 user=user).first().handleName
@@ -47,7 +42,6 @@ def UpdateData(get_response):
                             pass
 
                 elif contest['phase'] == 'BEFORE':
-                    # print(contest)
                     domain = Domain.objects.filter(
                         name='https://codeforces.com/').first()
                     id = contest['id']
@@ -56,7 +50,6 @@ def UpdateData(get_response):
                         upcoming_contest = Contest(hostingSite=url, timing=datetime.fromtimestamp(
                             contest['startTimeSeconds']), domain_contest=domain, name=name, ref=id)
                         upcoming_contest.save()
-                    print(contest)
             response = get_response(request)
         return response
     return middleware

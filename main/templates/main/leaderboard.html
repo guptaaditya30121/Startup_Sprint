@@ -9,7 +9,7 @@
     color: #333;
   }
   .center{color:white;
-  position:absolute;
+  {% comment %} position:absolute; {% endcomment %}
   top:40vh;
   left:35vw}
 </style>
@@ -209,7 +209,7 @@
     <div class="item">
       <div class="pos">{{forloop.counter3}}</div>
       <div class="name">{{participants.user}}</div>
-      {% if forloop.counter3 > 10%}
+      {% if forloop.counter0 > 7%}
       <div class="score">1</div>
       {%else%}
       <div class="score">5</div>
