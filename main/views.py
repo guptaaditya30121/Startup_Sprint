@@ -87,16 +87,24 @@ def profile(request):
             else:
                 domain = Domain.objects.filter(
                     name='https://lichess.org/').first()
-                response = requests.get(f'https://lichess.org/api/user/{lichess_handle}')
-                if response.status_code == 200:
-                    handle = Handle(handle_domain=domain,
-                                    handleName=lichess_handle, user=user)
-                    handle.save()
-                else:
-                    print('s')
+                try:
+                    response = requests.get(f'https://lichess.org/api/user/{lichess_handle}')
+                    if response.status_code == 200:
+                        handle = Handle(handle_domain=domain,
+                                        handleName=lichess_handle, user=user)
+                        handle.save()
+                except:
                     messages.error(request, "User Handle Not Found")
-            # except:
-            #     messages.error(request, "User Handle Not Found")
+                # response = requests.get(f'https://lichess.org/api/user/{lichess_handle}')
+                # if response.status_code == 200:
+                #     handle = Handle(handle_domain=domain,
+                #                     handleName=lichess_handle, user=user)
+                #     handle.save()
+                # else:
+                #     print('s')
+                #     messages.error(request, "User Handle Not Found")
+                print(lichess_handle)
+           
 
     response = {'user': user, 'codeforces': 0, 'codeforces_history': False,
                 'lichess': False, 'lichess_history': False, 'upcoming': False}
@@ -109,25 +117,6 @@ def profile(request):
             contests = Contest.objects.filter(
                 finished=False).order_by('timing')
             response.update({'upcoming': contests})
-        if str(handle.handle_domain) == 'https://lichess.org/':
-            resp = requests.get(f'https://lichess.org/api/user/{handle.handleName}').json()
-            # resp = json.load(resp)
-            response.update({'lichess': resp})
-            resp = requests.get(
-                f'https://lichess.org/api/games/user/{handle.handleName}?since={datetime.timestamp(handle.createdAt)}&max=10', headers={'Accept': 'application/x-ndjson'})
-            print(resp)
-            # 'http://localhost:3000/result'))
-            # list_resp = resp.read().splitlines()
-            # json_resp = json.load(resp)
-            # list_resp = resp.text.splitlines()
-            # json_resp = list(map(lambda x: json.loads(x), list_resp))
-            # for match in resp:
-            #     if match['rated'] and match['createdAt']/1000 >= datetime.timestamp(handle.updatedAt):
-            #         if match['players'][match['winner']]['user']['name'] == handle.handleName:
-            #             user.user_points += 1
-            #             user.save()
-            # handle.save()
-            # response.update({'lichess_history': json_resp})
     return render(request, 'main/profile.html', response)
 
 

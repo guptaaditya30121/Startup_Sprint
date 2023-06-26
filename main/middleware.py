@@ -14,7 +14,7 @@ def UpdateData(get_response):
         if not Mtime:
             Mtime = Time(updater=0)
             Mtime.save()
-        if time.time()-datetime.timestamp(Mtime.time) < 3*3600:
+        if time.time()-datetime.timestamp(Mtime.time) < 31*3600:
             response = get_response(request)
             return response
         else:
