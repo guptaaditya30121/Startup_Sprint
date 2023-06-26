@@ -15,6 +15,9 @@
     border-radius: 0.5rem;
     background: #fff;
   }
+  .profile-head{
+    margin-left: 7vw;
+  }
   .profile-img {
     text-align: center;
   }
@@ -110,61 +113,55 @@
     justify-content: space-between;
   }
 </style>
+<nav class="navbar navbar-dark bg-dark">
+  <button type="button" class="btn btn-info btn-lg" ><a href={% url "coupon_page" %} style="text-decoration:none; color:white;">Rewards</a></button>
+  <button type="button" class="btn btn-info btn-lg" ><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
+</nav>
 
-<button type="button" class="btn btn-primary btn-lg" style="float:right; margin-right:20px;"><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
-<button type="button" class="btn btn-warning btn-lg" style=" margin-left:78vw;"><a href={% url "coupon_page" %} style="text-decoration:none; color:white;">Rewards</a></button>
 <div class="container emp-profile">
   <form method="post">
     <div class="row">
-      <div class="col-md-4">
-        <div class="profile-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-            alt=""
-            style="height: 300px; width: 300px"
-          />
-        </div>
-      </div>
       <br />
       <div class="col-md-6">
         <div class="profile-head">
-          <h1 style="font-family:Lucida Sans; margin-left:100px;">{{user.username|capfirst}}</h1>
+          <h1 style="font-family:Lucida Sans; font-weight:600; font-size:60px">{{user.name|capfirst}}</h1>
+          <h2 style="font-family:Lucida Sans; font-weight:400; font-size:30px">{{user.username}}</h2>
           {% comment %}
           <h3>Total Points :{{user.}}</h3>
           {% endcomment %}
           
-          <h4 style="margin-top:50px; color:grey; margin-left:100px;"><em>"</em>Inspiration does exist, but it must find you working.<em>"</em></h4>
+           <br/>
           {% if codeforces %}
           {% else %}
+          
           <form style="margin-left:100px;" method="POST">
             {% csrf_token %}
-            <h6 style="color:purple; margin-top:100px; ">Enter your codeforces handle</h6>
+            <h6 style="color:purple;  margin-top:20px;">Enter your codeforces handle</h6>
           <input
             name="codeforces_handle"
             type="text"
             required
           />
-          <input type="submit">
+          <input type="submit" class="btn btn-primary">
           </form style="margin-left:100px;">
           {% endif %}
           {% if lichess %}
           {% else %}
-          <form method="POST">
+          <form method="POST" >
             {% csrf_token %}
-            <h6 style="color:purple; margin-top:10px">Enter your lichess handle</h6>
+            <h6 style="color:red; margin-top:10px ;">Enter your lichess handle</h6>
           <input
             name="lichess_handle"
             type="text"
             required
           />
-          <input type="submit">
+          <input type="submit" class="btn-danger">
           </form>
           {% endif %}
         </div>
       </div>
     </div>
-    <br />
-    <br />
+    
     <br />
     <br />
 
@@ -194,7 +191,7 @@
             <div class="row"></div>
             <div class="row">
               <div class="col-md-6">
-                <label>Ranking</label>
+                <label>Current Rating</label>
               </div>
               <div class="col-md-6">
                 <p>{{codeforces.rating}}</p>

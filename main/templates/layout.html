@@ -16,24 +16,22 @@
         width:100vw;
         justify-content:center;
         align-items:center;
-        position:absolute;
-        height:2vh;
-        min-height:50px;
-        font-size:2vw;
-        color:white;
+        position:relative;
+        height:2.5vh;
+        min-height:40px;
+        margin :0px;
+               
     }
-    .messages li{
-        decoration:none;
-    }
+    
 </style>
 <body>
     {% if messages %}
-    <ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-    </ul>
-    {% endif %}
+        {% for message in messages %}
+        <div class="alert alert-warning messages" role="alert">
+           {{ message }}
+          </div>
+           {% endfor %}
+        {% endif %}
     {% block content %} {% endblock %}
 </body>
 </html>

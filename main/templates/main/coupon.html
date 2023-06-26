@@ -21,16 +21,22 @@
     .head{display:flex; justify-content:center; align-item:center; color:white ; font-family: Georgia; margin-bottom:40px;}
     .big{width:10vw; margin-right:5vw; height:3vw; font-size:20px;}
 </style>
-<button type="button" class="btn btn-primary btn-lg" style="float:right; margin-right:20px;"><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
-<button type="button" class="btn btn-warning btn-lg" style=" margin-left:20px;"><a href={% url "profile"%} style="text-decoration:none; color:white;">Home</a></button>
+<nav class="navbar navbar-dark bg-dark">
+    <button type="button" class="btn btn-info btn-lg" ><a href={% url "logout"%} style="text-decoration:none; color:white;">Logout</a></button>
+    <h1 style="color:white;">Your Coupons</h1>
+    <button type="button" class="btn btn-info btn-lg" ><a href={% url "profile"%} style="text-decoration:none; color:white;">Home</a></button>      
+</nav>
 <div class="container-fluid">
-    <div class="head">
-        <h1 style="font-size:5vw; text-decoration:underline;">Your Coupons</h1>
-    </div>
-    <div class="row">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            
+        </div>
+      </nav>
+    
+    <div class="row" >
         <div class="col-lg-9">
             <div class="card">
-                <div class="table-responsive">
+                <div class="table-responsive" style="background-color: #fef2e9;">
                     <table class="table table-borderless table-shopping-cart">
                         <thead class="text-muted">
                             <tr class="small text-uppercase">
@@ -60,7 +66,7 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="coupon" value="50"></input>
                                     
-                                    <button type="submit" class="btn btn-light btn-round big" name="redeem">Redeem</button>
+                                    <button type="submit" class="btn btn-info btn-round big" name="redeem">Redeem</button>
                                 </form> </td>
                                 
                             </tr>
@@ -84,7 +90,7 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="coupon" value="35"></input>
                                    
-                                    <button type="submit" class="btn btn-light btn-round big" name="redeem">Redeem</button>
+                                    <button type="submit" class="btn btn-info btn-round big" name="redeem">Redeem</button>
                                 </form></td>
                             </tr>
                             
@@ -106,7 +112,7 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="coupon" value="15"></input>
                                        
-                                        <button type="submit" class="btn btn-light btn-round big" name="redeem">Redeem</button>
+                                        <button type="submit" class="btn btn-info btn-round big" name="redeem">Redeem</button>
                                     </form>
                                     </td>
                             </tr>
@@ -127,7 +133,7 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="coupon" value="10"></input>
                                    
-                                    <button type="submit" class="btn btn-light btn-round big" name="redeem">Redeem</button>
+                                    <button type="submit" class="btn btn-info btn-round big" name="redeem">Redeem</button>
                                 </form></td>
                             </tr>
                             

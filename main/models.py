@@ -53,6 +53,7 @@ class Contest(models.Model):
 
 
 class User(AbstractUser, PermissionsMixin):
+    name = models.CharField(max_length=100 , default="Unknown")
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
     recentActivity = models.ForeignKey(

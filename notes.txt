@@ -1,0 +1,33 @@
+Django works basically on MVC(model-view controller) server side framework designed
+to operate with relational databases.
+Django admin site web based interface desinged to access the realtional databases
+connected to a Django project
+I have used SQLite here
+Urls define the entry points or where to access content. 
+Templates define the end points that give form to the final content.
+And apps serve as the middleware between urls and templates, altering or adding content from a database or user interactions.
+To run static content you only need to create and configure Django urls and templates. 
+To run dynamic content -- built from a database or user interactions -- you need to create and configure Django apps, in addition to urls and templates.
+https://www.webforefront.com/static/images/beginningdjango/Figure_1-4.png
+views.py files -- is a controller method with access to a user's web request.
+web request (e.g. IP address, session)
+
+createsuperuser to create a new super user
+
+ A Django model is an object orientated Python class that represents the characteristics of an entity.
+
+ migration files--->Maintaining these Django models changes throughout time
+
+
+Django, models.Model is a class provided by the Django ORM (Object-Relational Mapping
+) that serves as the base class for creating database models. 
+
+FIRST WE MAKE migration(for making migration file tracks any changes to model) AND THEN MIGRATE.
+
+--__str__(self)  //self means instance of article (it defines how an article is going to look in admin section and shell when we retirieve it)  
+Django(ORM) ->Object Relational Mapper.
+
+admin.site.register this register the model we wanted to show
+
+I have used extending templates here
+

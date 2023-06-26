@@ -3,6 +3,7 @@ import time
 from datetime import datetime
 import json
 from urllib.request import urlopen
+import requests
 # import FileNotFoundError from django.core.exceptions
 
 
@@ -19,8 +20,8 @@ def UpdateData(get_response):
         else:
             Mtime.updater = 0
             Mtime.save()
-            resp = json.load(urlopen(
-                'https://codeforces.com/api/contest.list?gym=false'))['result']
+            resp = requests.get(
+                'https://codeforces.com/api/contest.list?gym=false').json()['result']
 
             for contest in resp:
                 id = contest['id']

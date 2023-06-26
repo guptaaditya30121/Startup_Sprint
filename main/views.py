@@ -7,31 +7,39 @@ import json
 from datetime import datetime
 import time
 from urllib.request import urlopen, Request
+import requests
 
 # Create your views here.
 
 
 def login(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = User.objects.filter(username=username).first()
-        if user:
-            user = authenticate(request, username=username, password=password)
-            if user is None:
-                messages.error(request, 'Incorrect Password')
+    if request.user.is_authenticated:
+        return redirect('profile')
+    else :
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = User.objects.filter(username=username).first()
+            if user:
+                print("**")
+                user = authenticate(request, username=username, password=password)
+                if user is None:
+                    messages.error(request, 'Incorrect Password')
+                    return redirect('login')
+                else:
+                    auth_login(request, user)
+                    messages.success(request,'Successfuly logged in')
+                    return redirect('profile')
             else:
-                auth_login(request, user)
-                return redirect('profile')
-        else:
-            messages.error(request, "Username is not Correct")
-    return render(request, 'main/login.html')
+                messages.error(request, "Username is not Correct")
+        return render(request, 'main/login.html')
 
 
 def register(request):
     if request.method == "POST":
         email = request.POST.get('email')
         username = request.POST.get('username')
+        name = request.POST.get('name')
         user = User.objects.filter(username=username).first()
         if user:
             messages.error(request, "Please choose a different Username")
@@ -40,7 +48,8 @@ def register(request):
         else:
             password = request.POST.get('password')
             User.objects.create_user(
-                email=email, password=password, username=username)
+               name=name, email=email, password=password, username=username)
+            messages.success(request,'User Successfuly Created')
             return redirect('login')
     return render(request, 'main/register.html')
 
@@ -65,7 +74,8 @@ def profile(request):
                 domain = Domain.objects.filter(
                     name='https://codeforces.com/').first()
                 try:
-                    if json.load(urlopen(f'https://codeforces.com/api/user.info?handles={codeforces_handle}'))['status'] == 'OK':
+                    response = requests.get(f'https://codeforces.com/api/user.info?handles={codeforces_handle}')
+                    if response.status_code == 200:
                         handle = Handle(handle_domain=domain,
                                         handleName=codeforces_handle, user=user)
                         handle.save()
@@ -77,7 +87,8 @@ def profile(request):
             else:
                 domain = Domain.objects.filter(
                     name='https://lichess.org/').first()
-                if not "error" in json.load(urlopen(f'https://lichess.org/api/user/{lichess_handle}')):
+                response = requests.get(f'https://lichess.org/api/user/{lichess_handle}')
+                if response.status_code == 200:
                     handle = Handle(handle_domain=domain,
                                     handleName=lichess_handle, user=user)
                     handle.save()
@@ -91,31 +102,32 @@ def profile(request):
                 'lichess': False, 'lichess_history': False, 'upcoming': False}
     for handle in Handle.objects.filter(user=user):
         if str(handle.handle_domain) == 'https://codeforces.com/':
-            response.update({'codeforces': json.load(urlopen(
-                f'https://codeforces.com/api/user.info?handles={handle.handleName}'))['result'][0]})
+            response.update({'codeforces': requests.get(
+                f'https://codeforces.com/api/user.info?handles={handle.handleName}').json()['result'][0]})
             history = user.contest_history.filter(finished=True)
             response.update({'codeforces_history': history})
             contests = Contest.objects.filter(
                 finished=False).order_by('timing')
             response.update({'upcoming': contests})
         if str(handle.handle_domain) == 'https://lichess.org/':
-            resp = urlopen(f'https://lichess.org/api/user/{handle.handleName}')
-            resp = json.load(resp)
+            resp = requests.get(f'https://lichess.org/api/user/{handle.handleName}').json()
+            # resp = json.load(resp)
             response.update({'lichess': resp})
-            resp = urlopen(Request(
-                f'https://lichess.org/api/games/user/{handle.handleName}?since={datetime.timestamp(handle.createdAt)}&max=10', headers={'Accept': 'application/x-ndjson'}))
+            resp = requests.get(
+                f'https://lichess.org/api/games/user/{handle.handleName}?since={datetime.timestamp(handle.createdAt)}&max=10', headers={'Accept': 'application/x-ndjson'})
+            print(resp)
             # 'http://localhost:3000/result'))
-            list_resp = resp.read().splitlines()
+            # list_resp = resp.read().splitlines()
             # json_resp = json.load(resp)
             # list_resp = resp.text.splitlines()
-            json_resp = list(map(lambda x: json.loads(x), list_resp))
-            for match in json_resp:
-                if match['rated'] and match['createdAt']/1000 >= datetime.timestamp(handle.updatedAt):
-                    if match['players'][match['winner']]['user']['name'] == handle.handleName:
-                        user.user_points += 1
-                        user.save()
-            handle.save()
-            response.update({'lichess_history': json_resp})
+            # json_resp = list(map(lambda x: json.loads(x), list_resp))
+            # for match in resp:
+            #     if match['rated'] and match['createdAt']/1000 >= datetime.timestamp(handle.updatedAt):
+            #         if match['players'][match['winner']]['user']['name'] == handle.handleName:
+            #             user.user_points += 1
+            #             user.save()
+            # handle.save()
+            # response.update({'lichess_history': json_resp})
     return render(request, 'main/profile.html', response)
 
 
@@ -156,7 +168,7 @@ def leaderboard(request, id):
 @login_required(login_url='login')
 def logout_view(request):
     logout(request)
-
+    # return redirect('register')
 
 def add_contest(request):
     return None
